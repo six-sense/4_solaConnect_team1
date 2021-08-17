@@ -14,10 +14,10 @@ function Date() {
   }, []);
 
   return (
-    <div>
+    <>
       <h2>{kDate}</h2>
       <h2>{eDate}</h2>
-    </div>
+    </>
   );
 }
 
