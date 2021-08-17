@@ -17,7 +17,7 @@ function Main() {
   let filteredArray = getOnlyNumbers([...numberArray]);
 
   const onHandleNumbers = (e) => {
-    let nums = e.target.value.trim().split(',');
+    let nums = e.target.value.replace(/(\s*)/g, '').split(',');
     setNumberArray(nums);
   };
 
