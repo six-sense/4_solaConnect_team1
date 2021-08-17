@@ -7,28 +7,44 @@ import { style } from './MainStyle';
 
 function Main() {
   const [numberArray, setNumberArray] = useState([]);
-  const [sortedNums, setSortedNums] = useState([]);
+  const [ascendNums, setAscendNums] = useState([]);
+  const [descendNums, setDescendNums] = useState([]);
   const [kDate, setKdate] = useState('');
   const [eDate, setEdate] = useState('');
 
-  let result;
+  let ascendResult;
+  let descendResult;
   let filteredArray = getOnlyNumbers([...numberArray]);
 
   const onHandleNumbers = (e) => {
+    setAscendNums([]);
+    setDescendNums([]);
     let nums = e.target.value.split(',');
-    setNumberArray(nums);
-  };
 
+    nums.forEach((ele) => {
+      if (isNaN(Number(ele))) {
+        return nums.concat(ele);
+      }
+      setNumberArray(nums);
+    });
+  };
   const onHandleAscendingSort = (e) => {
     e.preventDefault();
-    result = ascendingSort(filteredArray);
-    setSortedNums(result);
+    ascendResult = ascendingSort(filteredArray);
+    setAscendNums(ascendResult);
   };
 
   const onHandleDescendingSort = (e) => {
     e.preventDefault();
-    result = descendingSort(filteredArray);
-    setSortedNums(result);
+    descendResult = descendingSort(filteredArray);
+    setDescendNums(descendResult);
+  };
+
+  const onHandleSort = (e) => {
+    onHandleAscendingSort(e);
+    setTimeout(() => {
+      onHandleDescendingSort(e);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -40,24 +56,23 @@ function Main() {
   }, []);
 
   return (
-    <div>
-      <MainContainer>
-        <h2>{kDate}</h2>
-        <h2>{eDate}</h2>
-        <form>
-          <InputField
-            type="text"
-            placeholder="숫자 입력"
-            onChange={onHandleNumbers}
-          />
-          <ButtonContainer>
-            <Button onClick={onHandleAscendingSort}>오름차순</Button>
-            <Button onClick={onHandleDescendingSort}>내림차순</Button>
-          </ButtonContainer>
-        </form>
-        <h2>{`정렬 결과: ${JSON.stringify(sortedNums)}`}</h2>
-      </MainContainer>
-    </div>
+    <MainContainer>
+      <h2>{kDate}</h2>
+      <h2>{eDate}</h2>
+      <form>
+        <InputField
+          type="text"
+          placeholder="숫자 입력"
+          onChange={onHandleNumbers}
+        />
+        <ButtonContainer>
+          <Button onClick={onHandleSort}>실행</Button>
+        </ButtonContainer>
+      </form>
+
+      <h2>{`오름차순 정렬 결과: ${JSON.stringify(ascendNums)}`}</h2>
+      <h2>{`내림차순 정렬 결과: ${JSON.stringify(descendNums)}`}</h2>
+    </MainContainer>
   );
 }
 const { MainContainer, InputField, ButtonContainer, Button } = style;
