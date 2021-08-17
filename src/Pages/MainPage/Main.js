@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import Date from 'Components/Date';
+import React, { useState } from 'react';
 import ascendingSort from 'utils/ascendingSort';
-import { getEnDate, getKorDate } from 'utils/date';
+
 import descendingSort from 'utils/descendingSort';
 import { getOnlyNumbers } from 'utils/getOnlyNumber';
 import { style } from './MainStyle';
@@ -9,25 +10,17 @@ function Main() {
   const [numberArray, setNumberArray] = useState([]);
   const [ascendNums, setAscendNums] = useState([]);
   const [descendNums, setDescendNums] = useState([]);
-  const [kDate, setKdate] = useState('');
-  const [eDate, setEdate] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
 
   let ascendResult;
   let descendResult;
   let filteredArray = getOnlyNumbers([...numberArray]);
 
   const onHandleNumbers = (e) => {
-    setAscendNums([]);
-    setDescendNums([]);
     let nums = e.target.value.split(',');
-
-    nums.forEach((ele) => {
-      if (isNaN(Number(ele))) {
-        return nums.concat(ele);
-      }
-      setNumberArray(nums);
-    });
+    setNumberArray(nums);
   };
+
   const onHandleAscendingSort = (e) => {
     e.preventDefault();
     ascendResult = ascendingSort(filteredArray);
@@ -42,23 +35,17 @@ function Main() {
 
   const onHandleSort = (e) => {
     onHandleAscendingSort(e);
+    setIsDisabled(!isDisabled);
+
     setTimeout(() => {
       onHandleDescendingSort(e);
-    }, 2000);
+      setIsDisabled(!isDisabled);
+    }, 3000);
   };
-
-  useEffect(() => {
-    const korDate = getKorDate();
-    const enDate = getEnDate();
-
-    setKdate(korDate);
-    setEdate(enDate);
-  }, []);
 
   return (
     <MainContainer>
-      <h2>{kDate}</h2>
-      <h2>{eDate}</h2>
+      <Date />
       <form>
         <InputField
           type="text"
@@ -66,7 +53,9 @@ function Main() {
           onChange={onHandleNumbers}
         />
         <ButtonContainer>
-          <Button onClick={onHandleSort}>실행</Button>
+          <Button onClick={onHandleSort} disabled={isDisabled}>
+            실행
+          </Button>
         </ButtonContainer>
       </form>
 

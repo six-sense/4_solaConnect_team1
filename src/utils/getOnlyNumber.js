@@ -1,5 +1,7 @@
 export const getOnlyNumbers = (array) => {
   return array
-    .map((number) => parseInt(number))
-    .filter((number) => !isNaN(number));
+    .map((item) => {
+      if (item !== '') return Number(item);
+    })
+    .filter((item) => !isNaN(item));
 };
