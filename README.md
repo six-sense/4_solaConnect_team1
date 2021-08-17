@@ -1,4 +1,4 @@
-## 링크
+## 과제 링크
 https://solar-connect-1.netlify.app/
 
 ## 프로젝트 소개
@@ -19,3 +19,6 @@ https://solar-connect-1.netlify.app/
 | ----------- | ---------------------------------- |
 | 이주영      | 정렬 기능, 한글, 영문 Date 보여주기 |
 | 황윤성      | 정렬 기능, 한글, 영문 Date 보여주기 |
+
+## 참고 사이트
+https://im-developer.tistory.com/134
