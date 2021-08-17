@@ -40,7 +40,8 @@ export const Button = styled.button`
   height: 38px;
   border-radius: 6px;
   color: #fff;
-  background-color: #722ed1;
+  background-color: ${({ isDisabled }) => (isDisabled ? 'gray' : '#722ed1')};
+
   cursor: pointer;
   border: none;
   outline: none;

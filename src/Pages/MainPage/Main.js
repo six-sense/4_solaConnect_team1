@@ -35,14 +35,15 @@ function Main() {
 
   const onHandleSort = (e) => {
     onHandleAscendingSort(e);
-    setIsDisabled(!isDisabled);
+    setIsDisabled(true);
 
     setTimeout(() => {
       onHandleDescendingSort(e);
-      setIsDisabled(!isDisabled);
+      setIsDisabled(false);
     }, 3000);
   };
 
+  console.log('isDisabled: ', isDisabled);
   return (
     <MainContainer>
       <Date />
@@ -53,7 +54,11 @@ function Main() {
           onChange={onHandleNumbers}
         />
         <ButtonContainer>
-          <Button onClick={onHandleSort} disabled={isDisabled}>
+          <Button
+            onClick={onHandleSort}
+            disabled={isDisabled}
+            isDisabled={isDisabled}
+          >
             실행
           </Button>
         </ButtonContainer>
